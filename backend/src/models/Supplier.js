@@ -1,0 +1,3 @@
+import mongoose from 'mongoose'
+const schema = new mongoose.Schema({ name: { type: String, required: true, trim: true, unique: true, maxlength: 160 }, contact: { type: String, default: '', maxlength: 100 }, email: { type: String, lowercase: true, trim: true, default: '', maxlength: 254 }, phone: { type: String, default: '', maxlength: 30 }, address: { type: String, default: '', maxlength: 300 }, status: { type: String, enum: ['active', 'inactive'], default: 'active' }, notes: { type: String, maxlength: 1000, default: '' } }, { timestamps: true })
+export default mongoose.model('Supplier', schema)

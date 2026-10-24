@@ -1,0 +1,2 @@
+import mongoose from 'mongoose'
+export default mongoose.model('StockMovement', new mongoose.Schema({ product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true, index: true }, type: { type: String, enum: ['stock-in', 'stock-out', 'adjustment', 'return', 'damaged'], required: true }, quantity: { type: Number, required: true }, before: Number, after: Number, note: { type: String, maxlength: 300, default: '' }, actor: { type: mongoose.Schema.Types.ObjectId, ref: 'User' } }, { timestamps: true }))

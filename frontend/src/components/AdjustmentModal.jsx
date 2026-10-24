@@ -1,0 +1,7 @@
+import { useState } from 'react'
+import { Button, Field, Modal } from './Workspace'
+
+export default function AdjustmentModal({ product, onClose, onSave }) {
+  const [type, setType] = useState('stock-in'), [quantity, setQuantity] = useState('1'), [note, setNote] = useState('')
+  return <Modal title={`Adjust ${product.name}`} onClose={onClose} footer={<><Button variant="light" onClick={onClose}>Cancel</Button><Button type="submit" form="stock-adjust-form">Save adjustment</Button></>}><form id="stock-adjust-form" className="form-grid" onSubmit={e=>{e.preventDefault();onSave({type,quantity:Number(quantity),note})}}><p className="form-hint" style={{gridColumn:'1/-1'}}>Current stock: <b>{product.stock}</b> · All changes are recorded in the stock movement log.</p><Field label="Movement type"><select value={type} onChange={e=>setType(e.target.value)}><option value="stock-in">Stock in</option><option value="stock-out">Stock out</option><option value="adjustment">Set exact quantity</option><option value="return">Customer return</option><option value="damaged">Damaged stock</option></select></Field><Field label={type==='adjustment'?'New stock quantity':'Units'}><input type="number" required min={type==='adjustment'?'0':'1'} step="1" value={quantity} onChange={e=>setQuantity(e.target.value)}/></Field><Field label="Note"><input value={note} maxLength="300" onChange={e=>setNote(e.target.value)} placeholder="Optional reason"/></Field></form></Modal>
+}
